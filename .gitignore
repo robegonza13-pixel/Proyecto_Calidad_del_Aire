@@ -1,2 +1,8 @@
 .idea/
 .venv/
+
+# Python
+5
+__pycache__/
+6
+*.pyc
