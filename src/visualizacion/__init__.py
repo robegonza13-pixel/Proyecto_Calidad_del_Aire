@@ -1,5 +1,5 @@
 """Paquete de visualización"""
 
-from .visualizador import Visualizador
+from src.visualizacion.Visualizador import Visualizador
 
 __all__ = ["Visualizador"]
