@@ -100,8 +100,8 @@ def validar_columnas_requeridas(
     if faltantes:
         prefijo = f"[{contexto}] " if contexto else ""
         print(
-            f"{prefijo}⚠️  Faltan columnas en el DataFrame: {faltantes}. "
-            "Esta operación se omite hasta que esas columnas estén disponibles."
+            f"{prefijo}AVISO: faltan columnas en el DataFrame: {faltantes}. "
+            "Esta operacion se omite hasta que esas columnas esten disponibles."
         )
         return False
     return True
