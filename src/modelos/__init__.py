@@ -1,5 +1,5 @@
 """Paquete de modelos de Machine Learning."""
 
-from src.modelos.ModeloML import ModeloML
+from .ModeloML import ModeloML
 
 __all__ = ["ModeloML"]

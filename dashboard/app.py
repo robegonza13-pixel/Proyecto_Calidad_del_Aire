@@ -38,7 +38,7 @@ import pandas as pd
 
 from helpers.datos_demo import generar_datos_demo
 from visualizacion.visualizador import Visualizador
-from modelos.modelo_ml import ModeloML
+from modelos.ModeloML import ModeloML
 
 # CONFIGURACIÓN DEL DASHBOARD
 
