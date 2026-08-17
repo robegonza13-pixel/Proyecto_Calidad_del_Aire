@@ -40,6 +40,10 @@ from helpers.datos_demo import generar_datos_demo
 from visualizacion.visualizador import Visualizador
 from modelos.ModeloML import ModeloML
 
+from datos.GestorDatos import GestorDatos
+from basedatos.GestorBaseDatos import GestorBaseDatos
+from eda.ProcesadorEDA import ProcesadorEDA, MAPEO_MODELO
+
 # CONFIGURACIÓN DEL DASHBOARD
 
 st.set_page_config(
@@ -65,18 +69,35 @@ st.markdown(
 @st.cache_data
 def cargar_datos():
     """
-    Carga los datos utilizados por el dashboard.
+    Carga los datos REALES: lee los CSV limpios (Roberto), los guarda y
+    une en SQLite (GestorBaseDatos) y aplica la limpieza fina
+    (ProcesadorEDA). Si algo falla, usa datos DEMO como respaldo.
 
-    Actualmente utiliza datos DEMO para comprobar que todos los
-    módulos funcionan correctamente.
-
-    Cuando Persona A/B entregue el DataFrame real, esta función
-    puede sustituirse por la carga del dataset real.
+    Devuelve (df, column_mapping, fuente).
     """
-    return generar_datos_demo()
+    try:
+        gd = GestorDatos(
+            ruta_raw=str(ROOT_DIR / "data" / "raw"),
+            ruta_processed=str(ROOT_DIR / "data" / "processed"),
+        )
+        bd = GestorBaseDatos(str(ROOT_DIR / "data" / "datos_proyecto.db"))
+        bd.guardar_clima(gd.carga_datos("df_clima_limpio_san_jose.csv"))
+        bd.guardar_aire(gd.carga_datos("df_aire_limpio_san_jose.csv"))
+        bd.guardar_congestion(gd.carga_datos("df_congestion_limpio_san_jose.csv"))
+        df_real = ProcesadorEDA(bd.obtener_datos_unificados()).limpiar()
+        if not df_real.empty:
+            return df_real, MAPEO_MODELO, "reales"
+    except Exception as e:
+        print("No se pudieron cargar los datos reales, se usa DEMO:", e)
+    return generar_datos_demo(), {}, "demo"
 
 
-df = cargar_datos()
+df, MAPEO, fuente = cargar_datos()
+
+if fuente == "reales":
+    st.success("Fuente de datos: **reales** (CSV de Roberto → SQLite → EDA)")
+else:
+    st.warning("Fuente de datos: **DEMO** (sintéticos): no se pudieron cargar los reales.")
 
 # INFORMACIÓN GENERAL DE LOS DATOS
 
@@ -111,7 +132,7 @@ with st.expander("Ver datos"):
 
 # CREAR VISUALIZADOR
 
-viz = Visualizador(df)
+viz = Visualizador(df, column_mapping=MAPEO)
 
 # SECCIÓN DE VISUALIZACIONES
 
@@ -232,7 +253,8 @@ st.markdown(
 
 ml = ModeloML(
     df,
-    variable_objetivo="pm25"
+    variable_objetivo="pm25",
+    column_mapping=MAPEO,
 )
 
 # ENTRENAR Y EVALUAR
