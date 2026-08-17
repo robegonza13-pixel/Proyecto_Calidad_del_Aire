@@ -21,8 +21,8 @@ from pathlib import Path
 
 # CONFIGURACIÓN DE RUTAS
 
-# Ruta raíz del proyecto
-ROOT_DIR = Path(__file__).resolve().parent.parent
+# Ruta raíz del proyecto (app.py está en src/visualizacion/, sube 3 niveles)
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Ruta de src
 SRC_DIR = ROOT_DIR / "src"
