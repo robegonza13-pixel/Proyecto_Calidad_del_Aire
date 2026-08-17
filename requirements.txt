@@ -1,0 +1,21 @@
+# Dependencias del proyecto (instalar con: pip install -r requirements.txt)
+
+# Datos y API
+requests
+pandas
+numpy
+
+# Base de datos (SQLite via SQLAlchemy)
+sqlalchemy
+
+# EDA y graficos
+matplotlib
+seaborn
+
+# Modelos de Machine Learning
+scikit-learn
+joblib
+
+# Dashboard (Persona C)
+streamlit
+plotly

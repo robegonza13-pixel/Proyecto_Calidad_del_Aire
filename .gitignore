@@ -4,3 +4,9 @@
 # Python
 __pycache__/
 *.pyc
+
+# Base SQLite generada (los CSV reales SI se versionan; la .db se regenera)
+*.db
+
+# Graficos del EDA (se regeneran con python src/eda/explorar.py)
+data/processed/*.png
