@@ -249,6 +249,47 @@ class Visualizador:
         return fig
 
 
+    # 7. PM2.5 promedio por hora del día
+    # Columnas requeridas: 'pm25', 'hora'
+
+    def graficar_pm25_por_hora(self) -> go.Figure | None:
+        """Cómo cambia el PM2.5 a lo largo del día (patrón horario)."""
+        if not self._listos(["pm25", "hora"], "pm25_por_hora"):
+            return None
+        col_pm25, col_hora = self._col("pm25"), self._col("hora")
+        resumen = self.df.groupby(col_hora, as_index=False)[col_pm25].mean()
+        return px.line(
+            resumen,
+            x=col_hora,
+            y=col_pm25,
+            markers=True,
+            labels={col_hora: "Hora del día", col_pm25: "PM2.5 (µg/m³)"},
+            title="PM2.5 promedio por hora del día",
+        )
+
+
+    # 8. PM2.5 promedio según el nivel de congestión del tráfico
+    # Requiere 'pm25' y la columna 'nivel_congestion' (presente en los datos reales)
+
+    def graficar_pm25_por_congestion(self, col_congestion: str = "nivel_congestion") -> go.Figure | None:
+        """Compara el PM2.5 promedio en cada nivel de tráfico (Fluido→Pesado)."""
+        if not self._listos(["pm25"], "pm25_por_congestion") or col_congestion not in self.df.columns:
+            return None
+        col_pm25 = self._col("pm25")
+        orden = ["Fluido", "Leve", "Moderado", "Pesado"]
+        resumen = self.df.groupby(col_congestion, as_index=False)[col_pm25].mean()
+        return px.bar(
+            resumen,
+            x=col_congestion,
+            y=col_pm25,
+            color=col_pm25,
+            color_continuous_scale="YlOrRd",
+            category_orders={col_congestion: orden},
+            labels={col_congestion: "Nivel de congestión", col_pm25: "PM2.5 promedio (µg/m³)"},
+            title="PM2.5 promedio según el nivel de congestión del tráfico",
+        )
+
+
 if __name__ == "__main__":
     # Prueba rápida con datos DEMO (ver helpers/datos_demo.py).
     # Esto NO se ejecuta cuando la clase se importa desde otro módulo.

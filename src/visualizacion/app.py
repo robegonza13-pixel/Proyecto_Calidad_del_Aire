@@ -95,7 +95,7 @@ def cargar_datos():
 df, MAPEO, fuente = cargar_datos()
 
 if fuente == "reales":
-    st.success("Fuente de datos: **reales** (CSV de Roberto → SQLite → EDA)")
+    st.success("Fuente de datos real")
 else:
     st.warning("Fuente de datos: **DEMO** (sintéticos): no se pudieron cargar los reales.")
 
@@ -236,6 +236,29 @@ else:
     st.warning(
         "No hay información de ubicación suficiente para generar el mapa."
     )
+
+# 7. PM2.5 por hora del día
+
+st.subheader("PM2.5 promedio por hora del día")
+
+fig = viz.graficar_pm25_por_hora()
+
+if fig is not None:
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.warning("No hay datos suficientes para esta visualización.")
+
+# 8. PM2.5 según nivel de congestión
+
+st.subheader("PM2.5 según el nivel de congestión del tránsito")
+
+fig = viz.graficar_pm25_por_congestion()
+
+if fig is not None:
+    st.plotly_chart(fig, use_container_width=True)
+    st.caption("Compara la contaminación promedio en cada nivel de tráfico (Fluido → Pesado).")
+else:
+    st.info("Este gráfico usa la columna 'nivel_congestion', disponible con los datos reales.")
 
 # MACHINE LEARNING
 
