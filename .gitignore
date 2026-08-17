@@ -10,3 +10,7 @@ __pycache__/
 
 # Graficos del EDA (se regeneran con python src/eda/explorar.py)
 data/processed/*.png
+
+
+# O si solo quieres ignorar los archivos .csv dentro de data
+data/**/*.csv

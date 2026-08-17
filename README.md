@@ -102,8 +102,8 @@ semana, meteorología, otros contaminantes y **nivel de congestión**.
 
 ## Equipo
 
-| Rol | Módulos |
-|---|---|
-| Persona A | `datos/`, `api/` (adquisición y limpieza de fuentes) |
-| Persona B | `basedatos/`, `eda/` (almacenamiento y exploración) |
-| Persona C | `modelos/`, `visualizacion/` (ML y dashboard) |
+| Rol    | Módulos |
+|--------|---|
+| Roberto | `datos/`, `api/` (adquisición y limpieza de fuentes) |
+| Daniel | `basedatos/`, `eda/` (almacenamiento y exploración) |
+| Luca   | `modelos/`, `visualizacion/` (ML y dashboard) |
