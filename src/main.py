@@ -34,9 +34,9 @@ from src.modelos.ModeloML import ModeloML
 DB_PATH = str(RAIZ / "data" / "datos_proyecto.db")
 
 # CSV limpios que dejó Roberto en data/raw
-CSV_CLIMA = "df_clima_limpio_san_jose.csv"
-CSV_AIRE = "df_aire_limpio_san_jose.csv"
-CSV_CONGESTION = "df_congestion_limpio_san_jose.csv"
+CSV_CLIMA = "df_clima_limpio_cartago.csv"
+CSV_AIRE = "df_aire_limpio_cartago.csv"
+CSV_CONGESTION = "df_congestion_limpio_cartago.csv"
 
 
 def main() -> None:

@@ -123,6 +123,7 @@ class GestorDatos:
 
     @staticmethod
     def unir_datos(df_clima, df_calidad_aire, df_congestion):
-        df = pd.merge(df_clima, df_calidad_aire, on=["fecha", "hora", "dia_semana", "latitud", "longitud", "ubicacion"], how="left")
+        df = pd.merge(df_clima, df_calidad_aire, on=["fecha", "hora", "dia_semana", "latitud", "longitud", "ubicacion"],
+                      how="left")
         df_final = pd.merge(df, df_congestion, on=["hora", "dia_semana", "ubicacion"], how="left")
         return df_final

@@ -97,4 +97,3 @@ class ClienteAPI:
             "duracion_trafico_seg": duracion_trafico,
             "congestion_ratio": ratio
         }])
-
