@@ -81,9 +81,9 @@ def cargar_datos():
             ruta_processed=str(ROOT_DIR / "data" / "processed"),
         )
         bd = GestorBaseDatos(str(ROOT_DIR / "data" / "datos_proyecto.db"))
-        bd.guardar_clima(gd.carga_datos("df_clima_limpio_san_jose.csv"))
-        bd.guardar_aire(gd.carga_datos("df_aire_limpio_san_jose.csv"))
-        bd.guardar_congestion(gd.carga_datos("df_congestion_limpio_san_jose.csv"))
+        bd.guardar_clima(gd.carga_datos("df_clima_limpio_gam.csv"))
+        bd.guardar_aire(gd.carga_datos("df_aire_limpio_gam.csv"))
+        bd.guardar_congestion(gd.carga_datos("df_congestion_limpio_gam.csv"))
         df_real = ProcesadorEDA(bd.obtener_datos_unificados()).limpiar()
         if not df_real.empty:
             return df_real, MAPEO_MODELO, "reales"
